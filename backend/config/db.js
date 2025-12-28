@@ -1,8 +1,12 @@
 import mongoose from "mongoose";
+import "dotenv/config";
 
-export const ConnectDB = async() => {
-    await mongoose.connect("mongodb+srv://shivanshsharma2704_db_user:InvoiceFlow-2708@cluster0.evmmzgf.mongodb.net/InvoiceFlow")
-    .then(() => {
-        console.log('DB CONNECTED');
-    })
-}
+export const ConnectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI);
+    console.log("DB CONNECTED");
+  } catch (error) {
+    console.error("DB CONNECTION FAILED:", error.message);
+    process.exit(1);
+  }
+};
